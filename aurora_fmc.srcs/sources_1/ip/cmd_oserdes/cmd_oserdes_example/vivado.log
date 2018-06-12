@@ -1,0 +1,66 @@
+#-----------------------------------------------------------
+# Vivado v2014.4.1 (64-bit)
+# SW Build 1149489 on Thu Feb 19 16:00:12 MST 2015
+# IP Build 1147552 on Wed Feb 18 14:25:16 MST 2015
+# Start of session at: Fri Apr 20 18:20:28 2018
+# Process ID: 4812
+# Log file: /home/pixdaq/kdunne/fmc_four_lane_io_buf_640/aurora_tx/aurora_tx.srcs/sources_1/ip/cmd_oserdes/cmd_oserdes_example/vivado.log
+# Journal file: /home/pixdaq/kdunne/fmc_four_lane_io_buf_640/aurora_tx/aurora_tx.srcs/sources_1/ip/cmd_oserdes/cmd_oserdes_example/vivado.jou
+#-----------------------------------------------------------
+start_gui
+source /home/pixdaq/kdunne/fmc_four_lane_io_buf_640/aurora_tx/aurora_tx.srcs/sources_1/ip/cmd_oserdes/cmd_oserdes_ex.tcl
+# set srcIpDir "/home/pixdaq/kdunne/fmc_four_lane_io_buf_640/aurora_tx/aurora_tx.srcs/sources_1/ip/cmd_oserdes"
+# create_project -name cmd_oserdes_example -force
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/opt/Xilinx/Vivado/Vivado/2014.4/data/ip'.
+# set_property part xc7vx485tffg1761-2 [current_project]
+# set_property target_language verilog [current_project]
+# set_property simulator_language MIXED [current_project]
+# set_property board_part xilinx.com:vc707:part0:1.1 [current_project]
+# set returnCode 0
+# import_ip -files [list [file join $srcIpDir cmd_oserdes.xci]] -name cmd_oserdes
+# reset_target {example} [get_ips cmd_oserdes]
+WARNING: [Vivado 12-4104] The example target will be deprecated in a future release.
+# proc _filter_supported_targets {targets ip} {
+#   set res {}
+#   set all [get_property SUPPORTED_TARGETS $ip]
+#   foreach target $targets {
+#     lappend res {*}[lsearch -all -inline -nocase $all $target]
+#   }
+#   return $res
+# }
+# generate_target [_filter_supported_targets {instantiation_template synthesis simulation implementation shared_logic} [get_ips cmd_oserdes]] [get_ips cmd_oserdes]
+INFO: [IP_Flow 19-1706] Not generating 'Instantiation Template' target for IP 'cmd_oserdes'. Target already exists and is up to date.
+INFO: [IP_Flow 19-1706] Not generating 'Synthesis' target for IP 'cmd_oserdes'. Target already exists and is up to date.
+INFO: [IP_Flow 19-1706] Not generating 'Simulation' target for IP 'cmd_oserdes'. Target already exists and is up to date.
+# add_files -scan_for_includes -quiet -fileset [current_fileset] \
+#   [list [file join $srcIpDir cmd_oserdes/example_design/cmd_oserdes_exdes.v]]
+# add_files -quiet -fileset [current_fileset -constrset] \
+#   [list [file join $srcIpDir cmd_oserdes/example_design/cmd_oserdes_exdes.xdc]]
+# if { [catch {current_fileset -simset} exc] } { create_fileset -simset sim_1 }
+# add_files -quiet -scan_for_includes -fileset [current_fileset -simset] \
+#   [list [file join $srcIpDir cmd_oserdes/simulation/cmd_oserdes_tb.v]]
+# set_property USED_IN_SYNTHESIS false [get_files [file join $srcIpDir cmd_oserdes/simulation/cmd_oserdes_tb.v]]
+# import_files
+# set_property TOP [lindex [find_top] 0] [current_fileset]
+# update_compile_order -fileset [current_fileset]
+# update_compile_order -fileset [current_fileset -simset]
+# set dfile /home/pixdaq/kdunne/fmc_four_lane_io_buf_640/aurora_tx/aurora_tx.srcs/sources_1/ip/cmd_oserdes/oepdone.txt
+# set doneFile [open $dfile w]
+# puts $doneFile "Open Example Project DONE"
+# close $doneFile
+# if { $returnCode != 0 } {
+#   error "Problems were encountered while executing the example design script, please review the log files."
+# }
+close_project
+open_project /home/pixdaq/kdunne/fmc_four_lane_io_buf_640/aurora_tx/aurora_tx.xpr
+CRITICAL WARNING: [Project 1-19] Could not find the file '/home/pixdaq/git/cern_cable_test/gitrepo/aurora/RD53_emulator/RD53_Emulator/RD53_Emulation.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.upgrade_log'.
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/opt/Xilinx/Vivado/Vivado/2014.4/data/ip'.
+open_project: Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 5916.527 ; gain = 27.973 ; free physical = 1167 ; free virtual = 16342
+exit
+INFO: [Common 17-206] Exiting Vivado at Mon Apr 23 13:03:58 2018...

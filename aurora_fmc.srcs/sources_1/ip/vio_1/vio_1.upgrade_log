@@ -1,0 +1,37 @@
+Copyright 1986-2014 Xilinx, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2014.4.1 (lin64) Build 1149489 Thu Feb 19 16:00:12 MST 2015
+| Date         : Mon Apr 23 09:47:44 2018
+| Host         : dhcp-130-148.ucsc.edu running 64-bit Scientific Linux CERN SLC release 6.9 (Carbon)
+| Command      : upgrade_ip
+| Device       : xc7vx485tffg1761-2
+-----------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'vio_1'
+
+1. Summary
+----------
+
+SUCCESS in the update of vio_1 (xilinx.com:ip:vio:3.0 (Rev. 6)) to current project options.
+
+
+
+
+
+
+Copyright 1986-2014 Xilinx, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2014.4.1 (lin64) Build 1149489 Thu Feb 19 16:00:12 MST 2015
+| Date         : Fri Apr 20 18:13:49 2018
+| Host         : dhcp-130-148.ucsc.edu running 64-bit Scientific Linux CERN SLC release 6.9 (Carbon)
+| Command      : upgrade_ip
+| Device       : xc7k325tffg900-2
+-----------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'vio_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of vio_1 (xilinx.com:ip:vio:3.0) from (Rev. 5) to (Rev. 6)
+

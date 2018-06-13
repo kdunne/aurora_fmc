@@ -5,7 +5,7 @@ Using Xilinx VC707 evaluation board
 
 --------------------
 
-TODO
+### TODO
 
 -  Merge aurora rx_four_lane_top with tx_four_lane_top
 -  Find out if IO_config_buf is needed
@@ -17,7 +17,7 @@ TODO
 
 ---
 
-FINISHED
+### Finished
 
 - [x] Change constraints from KC705 to VC707 evaluation board
 - [x] Program rx/tx separately to VC707 - probe FMC outputs

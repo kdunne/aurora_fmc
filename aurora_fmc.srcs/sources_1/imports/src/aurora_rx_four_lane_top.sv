@@ -10,7 +10,13 @@ module aurora_fmc_num_lane_top (
     
     input [num_lanes-1:0] data_in_p,
     input [num_lanes-1:0] data_in_n,
-    
+
+    input USER_SMA_CLOCK_P,
+    input USER_SMA_CLOCK_N,
+
+    output [num_lanes-1:0] data_out_p,
+    output [num_lanes-1:0] data_out_n,    
+
     output latch,
     output clk_io,
     output ser_in,
@@ -18,8 +24,12 @@ module aurora_fmc_num_lane_top (
     output USER_SMA_CLOCK_P,
     output USER_SMA_CLOCK_N
 );
-localparam num_lanes = 4;       // Specify number of desired lanes. Needs further modifications to make this general purpose.
 
+localparam num_lanes = 4;       // Desired lanes.
+localparam ber_char = 64'hB0B5_C0CA_C01A_CAFE;
+localparam cb_char = 64'h7800_0000_0000_0040;   // From Memory may need to be changed
+
+integer i;
 
 // Resets
 wire rst;
@@ -30,6 +40,15 @@ wire clk160;
 wire clk640;
 wire clk400;
 wire mmcm_locked;
+
+// Data Driver Signals
+reg [11:0] cb_cnt; // Counter used to send Channel Bonding frame every 4096 clock cycles
+
+//Aurora Tx Core Signals
+wire [num_lanes-1:0] gearbox_rdy;
+wire [num_lanes-1:0] data_next;
+reg [63:0] data_in[num_lanes];
+reg [1:0] sync[num_lanes];
 
 // Aurora Rx Core Signals
 wire [63:0] data_out[num_lanes];
@@ -44,9 +63,14 @@ wire [1:0]  sync_out_cb[num_lanes];
 wire data_valid_cb;
 wire channel_bonded;
 
-// VIO Signals
-wire        vio_rst;
+// Debug/Monitoring Signals
+wire vio_rst;
+wire vio_en;
+wire [255:0] vio_data;
+wire[7:0] vio_sync;
+wire vio_en_counting;
 
+// Reset deasserted when mmcm locks
 assign rst = !mmcm_locked;
 
 //==========================
@@ -171,6 +195,94 @@ OBUFDS #(
 );
 
 //======================================
+//              Data Driver
+//======================================
+
+always @(posedge clk40) begin
+	if (rst|vio_rst) begin
+		for (i=0; i<num_lanes; i=i+1) begin
+			data_in[i] <= 64'h0000_0000_0000_0000;
+			sync[i] <= 2'b00;
+		end
+		cb_cnt <= 12'h000;
+	end
+	else if ((&gearbox_rdy) & (&data_next)) begin
+		if (vio_en) begin
+			if (vio_en_counting) begin
+				for (i=0; i<num_lanes; i=i+1) begin
+					data_in[i] <= data_in[i] + 1;
+					sync[i] <= 2'b01;
+				end
+			end
+			else begin
+				//for (i=0; i<num_lanes; i=i+1) begin
+				//    data_in[i] <= vio_data[63+(64*i):i*64];
+				//    sync[i] <= 2'b01;
+				//end
+				
+				data_in[0] <= vio_data[63+(64*0):0*64];
+				//sync[0] <= vio_sync[1+(2*0):0*2];
+				sync[0] <= vio_sync[1:0];
+				
+				data_in[1] <= vio_data[63+(64*1):1*64];
+				//sync[1] <= vio_sync[1+(2*1):1*2];
+				sync[1] <= vio_sync[3:2];
+
+				data_in[2] <= vio_data[63+(64*2):2*64];
+				//sync[2] <= vio_sync[1+(2*2):2*2];
+				sync[2] <= vio_sync[5:4];
+				
+				data_in[3] <= vio_data[63+(64*3):3*64];
+				//sync[3] <= vio_sync[1+(2*3):3*2];
+				//sync[3] <= vio_sync[1:0];
+				sync[3] <= 2'b10;
+			end
+		end
+		else begin
+			cb_cnt <= cb_cnt + 1;
+			if (cb_cnt == 12'hFFF) begin
+				for (int i=0; i<num_lanes; i=i+1) begin
+					data_in[i] <= cb_char;
+					sync[i] <= 2'b10;
+				end
+			end
+			else begin
+				for (int i=0; i<num_lanes; i=i+1) begin
+					data_in[i] <= 64'hC0CA_C01A_CAFE_0000;
+					sync[i] <= 2'b01;
+				end
+			end
+		end
+	end
+end
+
+
+//======================================
+//              Aurora Tx
+//======================================
+
+// Creating fourlanes so need to encapsulate Aurora Tx top.
+genvar j;
+
+generate
+	for (j=0; j < num_lanes; j=j+1)
+		begin : tx_core
+			aurora_tx_top tx_lane (
+				.rst(rst|vio_rst),
+				.clk40(clk40),
+				.clk160(clk160),
+				.clk640(clk640),
+				.data_in(data_in[j]),
+				.sync(sync[j]),
+				.gearbox_rdy(gearbox_rdy[j]),
+				.data_next(data_next[j]),
+				.data_out_p(data_out_p[j]),
+				.data_out_n(data_out_n[j])
+			);
+	end
+endgenerate
+
+//======================================
 //              Aurora Rx
 //======================================
 
@@ -250,9 +362,10 @@ channel_bond cb (
     .channel_bonded(channel_bonded)
 );
 
-//============================================================================
-//                       IO Buffer Configuration Driver
-//============================================================================
+//======================================
+//   IO Buffer Configuration Driver
+//======================================
+
 reg [31:0] io_config;
 reg start;
 reg [3:0] io_rst_cnt;

@@ -18,7 +18,7 @@ module aurora_fmc_top (
     output gearbox_rdy,
     output data_valid,
     output reg [1:0]  sync_out,
-    output [63:0] data_out
+    output [63:0] data_out,
 
     // Tx signals
     input[63:0] data_in,

@@ -19,8 +19,8 @@ Using Xilinx VC707 evaluation board
 
 ### Finished
 
-- [x] Change constraints from KC705 to VC707 evaluation board
+- [x] Change constraints from KC705 to VC707 evaluation board commit: 172764114d4dd8e4aec780bc010fea50a3d8d92f
+- [x] Merge rx/tx constraints commit: 172764114d4dd8e4aec780bc010fea50a3d8d92f
 - [x] Program rx/tx separately to VC707 - probe FMC outputs
-- [x] Merge rx/tx constraints
-- [x] Merge rx/tx sources to aurora_fmc
-
+- [x] Merge rx/tx sources to aurora_fmc/ commit: 172764114d4dd8e4aec780bc010fea50a3d8d92f
+- [x] Merge aurora_rx_top.sv with aurora_fmc_top.sv commit: a7fe34345864793f72ecf45fddb8a5f5cc03979e

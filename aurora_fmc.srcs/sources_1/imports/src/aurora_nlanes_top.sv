@@ -45,7 +45,7 @@ wire mmcm_locked;
 reg [11:0] cb_cnt; // Counter used to send Channel Bonding frame every 4096 clock cycles
 
 //Aurora Tx Core Signals
-wire [num_lanes-1:0] gearbox_rdy;
+wire [num_lanes-1:0] gearbox_rdy_tx;
 wire [num_lanes-1:0] data_next;
 reg [63:0] data_in[num_lanes];
 reg [1:0] sync[num_lanes];
@@ -256,34 +256,8 @@ always @(posedge clk40) begin
 	end
 end
 
-
 //======================================
-//              Aurora Tx
-//======================================
-
-// Creating fourlanes so need to encapsulate Aurora Tx top.
-genvar j;
-
-generate
-	for (j=0; j < num_lanes; j=j+1)
-		begin : tx_core
-			aurora_tx_top tx_lane (
-				.rst(rst|vio_rst),
-				.clk40(clk40),
-				.clk160(clk160),
-				.clk640(clk640),
-				.data_in(data_in[j]),
-				.sync(sync[j]),
-				.gearbox_rdy(gearbox_rdy[j]),
-				.data_next(data_next[j]),
-				.data_out_p(data_out_p[j]),
-				.data_out_n(data_out_n[j])
-			);
-	end
-endgenerate
-
-//======================================
-//              Aurora Rx
+//              Aurora FMC Rx/Tx
 //======================================
 
 /**
@@ -303,7 +277,7 @@ BUFG
 
 (* IODELAY_GROUP = "xapp_idelay" *)
 IDELAYCTRL
- delayctrl (
+delayctrl (
     .RDY    (idelay_rdy),
     .REFCLK (ref_clk_bufg),
     .RST    (rst|vio_rst)
@@ -313,35 +287,41 @@ genvar i;
 
 generate
     for (i=0; i < num_lanes; i=i+1)
-        begin : rx_core
-            //aurora_fmc_top rx_lane (
-            //    .rst(rst|vio_rst),
-            //    .clk40(clk40),
-            //    .clk160(clk160),
-            //    .clk640(clk640),
-            //    .data_in_p(data_in_p[i]),
-            //    .data_in_n(data_in_n[i]),
-            //    .blocksync_out(blocksync_out[i]),
-            //    .gearbox_rdy(gearbox_rdy_rx[i]),
-            //    .data_valid(data_valid[i]),
-            //    .sync_out(sync_out[i]),
-            //    .data_out(data_out[i])
-            //);
-            
-            aurora_fmc_top_xapp rx_lane (
+        begin : fmc_core
+            aurora_fmc_top fmc_lane (
                 .rst(rst|vio_rst),
                 .clk40(clk40),
                 .clk160(clk160),
                 .clk640(clk640),
                 .data_in_p(data_in_p[i]),
                 .data_in_n(data_in_n[i]),
-                .idelay_rdy(idelay_rdy),
                 .blocksync_out(blocksync_out[i]),
                 .gearbox_rdy(gearbox_rdy_rx[i]),
                 .data_valid(data_valid[i]),
                 .sync_out(sync_out[i]),
-                .data_out(data_out[i])
+                .data_out(data_out[i]),
+                .data_in(data_in[i]), // Tx signals 
+                .sync(sync[j]),
+                .gearbox_rdy_tx(gearbox_rdy_tx[i]),
+                .data_next(data_next[i]),
+                .data_out_p(data_out_p[i]),
+                .data_out_n(data_out_n[i])
             );
+            
+            //aurora_fmc_top_xapp rx_lane (
+            //    .rst(rst|vio_rst),
+            //    .clk40(clk40),
+            //    .clk160(clk160),
+            //    .clk640(clk640),
+            //    .data_in_p(data_in_p[i]),
+            //    .data_in_n(data_in_n[i]),
+            //    .idelay_rdy(idelay_rdy),
+            //    .blocksync_out(blocksync_out[i]),
+            //    .gearbox_rdy(gearbox_rdy_rx[i]),
+            //    .data_valid(data_valid[i]),
+            //    .sync_out(sync_out[i]),
+            //    .data_out(data_out[i])
+            //);
     end
 endgenerate
 

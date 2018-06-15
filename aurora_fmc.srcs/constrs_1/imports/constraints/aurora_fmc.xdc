@@ -99,81 +99,81 @@ set_property IOSTANDARD LVCMOS18 [get_ports data_out_n[7]]
 
 ### Lane 0
 ###FMC_LPC_LA25_P
-set_property PACKAGE_PIN AF20 [get_ports data_in_p[0]]
+set_property PACKAGE_PIN R33 [get_ports data_in_p[0]]
 set_property IOSTANDARD LVDS_25 [get_ports data_in_p[0]]
 set_property DIFF_TERM TRUE [get_ports data_in_p[0]]
 ###FMC_LPC_LA25_N
-set_property PACKAGE_PIN AF21 [get_ports data_in_n[0]]
+set_property PACKAGE_PIN R34 [get_ports data_in_n[0]]
 set_property IOSTANDARD LVDS_25 [get_ports data_in_n[0]]
 set_property DIFF_TERM TRUE [get_ports data_in_n[0]]
 
 ## Lane 1
 ##FMC_LPC_LA24_P
-set_property PACKAGE_PIN AG20 [get_ports data_in_p[1]]
+set_property PACKAGE_PIN U34 [get_ports data_in_p[1]]
 set_property IOSTANDARD LVDS_25 [get_ports data_in_p[1]]
 set_property DIFF_TERM TRUE [get_ports data_in_p[1]]
 ##FMC_LPC_LA24_N
-set_property PACKAGE_PIN AH20 [get_ports data_in_n[1]]
+set_property PACKAGE_PIN T35 [get_ports data_in_n[1]]
 set_property IOSTANDARD LVDS_25 [get_ports data_in_n[1]]
 set_property DIFF_TERM TRUE [get_ports data_in_n[1]]
 
 ## Lane 2
 ##FMC_LPC_LA29_N
-set_property PACKAGE_PIN AH21 [get_ports data_in_p[2]]
+set_property PACKAGE_PIN W36 [get_ports data_in_p[2]]
 set_property IOSTANDARD LVDS_25 [get_ports data_in_p[2]]
 set_property DIFF_TERM TRUE [get_ports data_in_p[2]]
 ##FMC_LPC_LA29_N
-set_property PACKAGE_PIN AJ21 [get_ports data_in_n[2]]
+set_property PACKAGE_PIN W37 [get_ports data_in_n[2]]
 set_property IOSTANDARD LVDS_25 [get_ports data_in_n[2]]
 set_property DIFF_TERM TRUE [get_ports data_in_n[2]]
 
 ## Lane 3
 ##FMC_LPC_LA28_P
-set_property PACKAGE_PIN AG22 [get_ports data_in_p[3]]
+set_property PACKAGE_PIN V35 [get_ports data_in_p[3]]
 set_property IOSTANDARD LVDS_25 [get_ports data_in_p[3]]
 set_property DIFF_TERM TRUE [get_ports data_in_p[3]]
 ##FMC_LPC_LA28_N
-set_property PACKAGE_PIN AH22 [get_ports data_in_n[3]]
+set_property PACKAGE_PIN V36 [get_ports data_in_n[3]]
 set_property IOSTANDARD LVDS_25 [get_ports data_in_n[3]]
 set_property DIFF_TERM TRUE [get_ports data_in_n[3]]
 
 ### Lane 4
 ###FMC_LPC_LA31_P
-set_property PACKAGE_PIN AF20 [get_ports data_in_p[4]]
+set_property PACKAGE_PIN V39 [get_ports data_in_p[4]]
 set_property IOSTANDARD LVDS_25 [get_ports data_in_p[4]]
 set_property DIFF_TERM TRUE [get_ports data_in_p[4]]
 ###FMC_LPC_LA31_N
-set_property PACKAGE_PIN AF21 [get_ports data_in_n[4]]
+set_property PACKAGE_PIN V40 [get_ports data_in_n[4]]
 set_property IOSTANDARD LVDS_25 [get_ports data_in_n[4]]
 set_property DIFF_TERM TRUE [get_ports data_in_n[4]]
 
 ## Lane 5
 ##FMC_LPC_LA30_P
-set_property PACKAGE_PIN AG20 [get_ports data_in_p[5]]
+set_property PACKAGE_PIN T32 [get_ports data_in_p[5]]
 set_property IOSTANDARD LVDS_25 [get_ports data_in_p[5]]
 set_property DIFF_TERM TRUE [get_ports data_in_p[5]]
 ##FMC_LPC_LA30_N
-set_property PACKAGE_PIN AH20 [get_ports data_in_n[5]]
+set_property PACKAGE_PIN R32 [get_ports data_in_n[5]]
 set_property IOSTANDARD LVDS_25 [get_ports data_in_n[5]]
 set_property DIFF_TERM TRUE [get_ports data_in_n[5]]
 
 ## Lane 6
 ##FMC_LPC_LA33_N
-set_property PACKAGE_PIN AH21 [get_ports data_in_p[6]]
+set_property PACKAGE_PIN T36 [get_ports data_in_p[6]]
 set_property IOSTANDARD LVDS_25 [get_ports data_in_p[6]]
 set_property DIFF_TERM TRUE [get_ports data_in_p[6]]
 ##FMC_LPC_LA33_N
-set_property PACKAGE_PIN AJ21 [get_ports data_in_n[6]]
+set_property PACKAGE_PIN R37 [get_ports data_in_n[6]]
 set_property IOSTANDARD LVDS_25 [get_ports data_in_n[6]]
 set_property DIFF_TERM TRUE [get_ports data_in_n[6]]
 
 ## Lane 7
 ##FMC_LPC_LA32_P
-set_property PACKAGE_PIN AG22 [get_ports data_in_p[7]]
+set_property PACKAGE_PIN P37 [get_ports data_in_p[7]]
 set_property IOSTANDARD LVDS_25 [get_ports data_in_p[7]]
 set_property DIFF_TERM TRUE [get_ports data_in_p[7]]
 ##FMC_LPC_LA32_N
-set_property PACKAGE_PIN AH22 [get_ports data_in_n[7]]
+set_property PACKAGE_PIN P38 [get_ports data_in_n[7]]
 set_property IOSTANDARD LVDS_25 [get_ports data_in_n[7]]
 set_property DIFF_TERM TRUE [get_ports data_in_n[7]]
 
@@ -204,73 +204,6 @@ set_property IOSTANDARD LVDS [get_ports USER_SMA_CLOCK_P]
 set_property PACKAGE_PIN AK32 [get_ports USER_SMA_CLOCK_N]
 set_property IOSTANDARD LVDS [get_ports USER_SMA_CLOCK_N]
 
-######################## FMC HPC IO Buffer OSERDES Output ########################
-## Lane 0
-# KC705
-##FMC_LPC_LA06_P
-#set_property PACKAGE_PIN AK20 [get_ports data_out_p[0]]
-#set_property IOSTANDARD LVDS_25 [get_ports data_out_p[0]]
-##FMC_LPC_LA06_N
-#set_property PACKAGE_PIN AK21 [get_ports data_out_n[0]]
-#set_property IOSTANDARD LVDS_25 [get_ports data_out_n[0]]
-
-# Lane 0
-# Changed to VC707
-# FMC_HPC_LA02_P
-set_property PACKAGE_PIN P41 [get_ports data_out_p[0]]
-set_property IOSTANDARD LVDS [get_ports data_out_p[0]]
-set_property DIFF_TERM TRUE [get_ports data_out_p[0]]
-# FMC_HPC_LA02_N
-set_property PACKAGE_PIN N41 [get_ports data_out_n[0]]
-set_property IOSTANDARD LVDS [get_ports data_out_n[0]]
-set_property DIFF_TERM TRUE [get_ports data_out_n[0]]
-
-# Lane 1
-# Changed to VC707
-# FMC_HPC_LA03_P
-set_property PACKAGE_PIN M42 [get_ports data_out_p[1]]
-set_property IOSTANDARD LVDS [get_ports data_out_p[1]]
-set_property DIFF_TERM TRUE [get_ports data_out_p[1]]
-# FMC_HPC_LA03_N
-set_property PACKAGE_PIN L42 [get_ports data_out_n[1]]
-set_property IOSTANDARD LVDS [get_ports data_out_n[1]]
-set_property DIFF_TERM TRUE [get_ports data_out_n[1]]
-
-# Lane 2
-# FMC_HPC_LA04_P
-set_property PACKAGE_PIN H40 [get_ports data_out_p[2]]
-set_property IOSTANDARD LVDS [get_ports data_out_p[2]]
-set_property DIFF_TERM TRUE [get_ports data_out_p[2]]
-# FMC_HPC_LA04_N
-set_property PACKAGE_PIN H41 [get_ports data_out_n[2]]
-set_property IOSTANDARD LVDS [get_ports data_out_n[2]]
-set_property DIFF_TERM TRUE [get_ports data_out_n[2]]
-
-# Lane 3
-# FMC_HPC_LA05_P
-set_property PACKAGE_PIN AF42 [get_ports data_out_p[3]]
-set_property IOSTANDARD LVDS [get_ports data_out_p[3]]
-set_property DIFF_TERM TRUE [get_ports data_out_p[3]]
-# FMC_HPC_LA05_N
-set_property PACKAGE_PIN AG42 [get_ports data_out_n[3]]
-set_property IOSTANDARD LVDS [get_ports data_out_n[3]]
-set_property DIFF_TERM TRUE [get_ports data_out_n[3]]
-
-######################### IO Buffer Driver Ports ########################
-#FMC2_HPC_LA17_CC_N
-set_property PACKAGE_PIN D21 [get_ports latch]
-set_property IOSTANDARD LVCMOS18 [get_ports latch]
-
-#FMC2_HPC_LA32_N
-set_property PACKAGE_PIN H38 [get_ports clk_io]
-set_property IOSTANDARD LVCMOS18 [get_ports clk_io]
-
-#FMC2_HPC_LA33_P
-set_property PACKAGE_PIN G36 [get_ports ser_in]
-set_property IOSTANDARD LVCMOS18 [get_ports ser_in]
-
-############ FROM TX #############################
-#
 ################################## LCD Ports ########################
 #GPIO LCD
 #set_property PACKAGE_PIN AA13 [get_ports LCD_DB4_LS]

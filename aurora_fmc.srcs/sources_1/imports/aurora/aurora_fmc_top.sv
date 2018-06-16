@@ -151,29 +151,29 @@ gearbox66to32 tx_gb (
 );
 
 // OSERDES Interface
-cmd_oserdes piso0_1280(
-    .io_reset(rst),
-    .data_out_from_device(piso),
-    .data_out_to_pins_p(data_out_p),
-    .data_out_to_pins_n(data_out_n),
-    .clk_in(clk640),
-    .clk_div_in(clk160)
-);
+//cmd_oserdes piso0_1280(
+//    .io_reset(rst),
+//   .data_out_from_device(piso),
+//  .data_out_to_pins_p(data_out_p),
+//  .data_out_to_pins_n(data_out_n),
+//  .clk_in(clk640),
+//  .clk_div_in(clk160)
+//);
 
 //===================
 // Aurora Rx
 //===================
 
 // ISERDES Interface
-cmd_iserdes i0 (
-    .data_in_from_pins_p(data_in_p),
-    .data_in_from_pins_n(data_in_n),
-    .clk_in(clk640),
-    .clk_div_in(clk160),
-    .io_reset(rst),
-    .bitslip(iserdes_slip),
-    .data_in_to_device(sipo)
-);
+//cmd_iserdes i0 (
+//    .data_in_from_pins_p(data_in_p),
+//    .data_in_from_pins_n(data_in_n),
+//    .clk_in(clk640),
+//    .clk_div_in(clk160),
+//    .io_reset(rst),
+//    .bitslip(iserdes_slip),
+//    .data_in_to_device(sipo)
+//);
 
 
 // Rx Gearbox

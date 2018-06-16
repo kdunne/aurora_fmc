@@ -19,10 +19,10 @@ module aurora_fmc_num_lane_top (
 
     output latch,
     output clk_io,
-    output ser_in,
+    output ser_in
     
-    output USER_SMA_CLOCK_P,
-    output USER_SMA_CLOCK_N
+    //output USER_SMA_CLOCK_P,
+    //output USER_SMA_CLOCK_N
 );
 
 localparam num_lanes = 4;       // Desired lanes.
@@ -206,7 +206,7 @@ always @(posedge clk40) begin
 		end
 		cb_cnt <= 12'h000;
 	end
-	else if ((&gearbox_rdy) & (&data_next)) begin
+	else if ((&gearbox_rdy_rx) & (&data_next)) begin
 		if (vio_en) begin
 			if (vio_en_counting) begin
 				for (i=0; i<num_lanes; i=i+1) begin
@@ -283,29 +283,29 @@ delayctrl (
     .RST    (rst|vio_rst)
 );
 
-genvar i;
+genvar j;
 
 generate
-    for (i=0; i < num_lanes; i=i+1)
+    for (j=0; j < num_lanes; j=j+1)
         begin : fmc_core
             aurora_fmc_top fmc_lane (
                 .rst(rst|vio_rst),
                 .clk40(clk40),
                 .clk160(clk160),
                 .clk640(clk640),
-                .data_in_p(data_in_p[i]),
-                .data_in_n(data_in_n[i]),
-                .blocksync_out(blocksync_out[i]),
-                .gearbox_rdy(gearbox_rdy_rx[i]),
-                .data_valid(data_valid[i]),
-                .sync_out(sync_out[i]),
-                .data_out(data_out[i]),
-                .data_in(data_in[i]), // Tx signals 
+                .data_in_p(data_in_p[j]),
+                .data_in_n(data_in_n[j]),
+                .blocksync_out(blocksync_out[j]),
+                .gearbox_rdy(gearbox_rdy_rx[j]),
+                .data_valid(data_valid[j]),
+                .sync_out(sync_out[j]),
+                .data_out(data_out[j]),
+                .data_in(data_in[j]), // Tx signals 
                 .sync(sync[j]),
-                .gearbox_rdy_tx(gearbox_rdy_tx[i]),
-                .data_next(data_next[i]),
-                .data_out_p(data_out_p[i]),
-                .data_out_n(data_out_n[i])
+                .gearbox_rdy_tx(gearbox_rdy_tx[j]),
+                .data_next(data_next[j]),
+                .data_out_p(data_out_p[j]),
+                .data_out_n(data_out_n[j])
             );
             
             //aurora_fmc_top_xapp rx_lane (

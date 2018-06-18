@@ -6,8 +6,8 @@ Using Xilinx VC707 evaluation board
 --------------------
 
 ### TODO
-
--  Merge aurora rx_four_lane_top with tx_four_lane_top
+-  solve data_in single ended but IOSTD LVDS (IBUFGDS?)
+-  oserdes/iserdes source file does not match data members in IP 
 -  Find out if IO_config_buf is needed
 -  Select appropriate clocks (160 Mbps)
 -  Generate 1 lane of data
@@ -24,3 +24,4 @@ Using Xilinx VC707 evaluation board
 - [x] Program rx/tx separately to VC707 - probe FMC outputs
 - [x] Merge rx/tx sources to aurora_fmc/ commit: 172764114d4dd8e4aec780bc010fea50a3d8d92f
 - [x] Merge aurora_rx_top.sv with aurora_fmc_top.sv commit: a7fe34345864793f72ecf45fddb8a5f5cc03979e
+- [x] Merge aurora rx_four_lane_top with tx_four_lane_top commit: 

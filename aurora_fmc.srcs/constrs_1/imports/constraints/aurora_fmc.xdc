@@ -33,34 +33,35 @@ set_property IOSTANDARD LVDS [get_ports sysclk_in_p]
 # Lane 0
 #FMC_HPC_LA02_P
 set_property PACKAGE_PIN AK39 [get_ports data_out_p[0]]
-set_property IOSTANDARD LVCMOS18 [get_ports data_out_p[0]]
+set_property IOSTANDARD LVDS [get_ports data_out_p[0]]
+set_property DIFF_TERM TRUE [get_ports data_out_p[0]]
 #FMC_HPC_LA02_N
 set_property PACKAGE_PIN AL39 [get_ports data_out_n[0]]
-set_property IOSTANDARD LVCMOS18 [get_ports data_out_n[0]]
+set_property IOSTANDARD LVDS [get_ports data_out_n[0]]
 
 # Lane 1
 #FMC_HPC_LA03_P
 set_property PACKAGE_PIN AJ42 [get_ports data_out_p[1]]
-set_property IOSTANDARD LVCMOS18 [get_ports data_out_p[1]]
+set_property IOSTANDARD LVDS [get_ports data_out_p[1]]
 #FMC_HPC_LA03_N
 set_property PACKAGE_PIN AK42 [get_ports data_out_n[1]]
-set_property IOSTANDARD LVCMOS18 [get_ports data_out_n[1]]
+set_property IOSTANDARD LVDS [get_ports data_out_n[1]]
 
 # Lane 2
 #FMC_HPC_LA04_N
 set_property PACKAGE_PIN AL41 [get_ports data_out_p[2]]
-set_property IOSTANDARD LVCMOS18 [get_ports data_out_p[2]]
+set_property IOSTANDARD LVDS [get_ports data_out_p[2]]
 #FMC_HPC_LA04_N
 set_property PACKAGE_PIN AL42 [get_ports data_out_n[2]]
-set_property IOSTANDARD LVCMOS18 [get_ports data_out_n[2]]
+set_property IOSTANDARD LVDS [get_ports data_out_n[2]]
 
 # Lane 3
 #FMC_HPC_LA08_P
 set_property PACKAGE_PIN AD42 [get_ports data_out_p[3]]
-set_property IOSTANDARD LVCMOS18 [get_ports data_out_p[3]]
+set_property IOSTANDARD LVDS [get_ports data_out_p[3]]
 #FMC_HPC_LA08_N
 set_property PACKAGE_PIN AE42 [get_ports data_out_n[3]]
-set_property IOSTANDARD LVCMOS18 [get_ports data_out_n[3]]
+set_property IOSTANDARD LVDS [get_ports data_out_n[3]]
 
 # Lane 4
 #FMC_HPC_LA07_P

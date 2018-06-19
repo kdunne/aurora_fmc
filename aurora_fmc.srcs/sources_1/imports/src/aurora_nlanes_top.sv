@@ -288,13 +288,34 @@ genvar j;
 generate
     for (j=0; j < num_lanes; j=j+1)
         begin : fmc_core
-            aurora_fmc_top fmc_lane (
+            //aurora_fmc_top fmc_lane (
+            //    .rst(rst|vio_rst),
+            //    .clk40(clk40),
+            //    .clk160(clk160),
+            //    .clk640(clk640),
+            //    .data_in_p(data_in_p[j]),
+            //    .data_in_n(data_in_n[j]),
+            //    .blocksync_out(blocksync_out[j]),
+            //    .gearbox_rdy(gearbox_rdy_rx[j]),
+            //    .data_valid(data_valid[j]),
+            //    .sync_out(sync_out[j]),
+            //    .data_out(data_out[j]),
+            //    .data_in(data_in[j]), // Tx signals 
+            //    .sync(sync[j]),
+            //    .gearbox_rdy_tx(gearbox_rdy_tx[j]),
+            //    .data_next(data_next[j]),
+            //    .data_out_p(data_out_p[j]),
+            //    .data_out_n(data_out_n[j])
+            //);
+            
+            aurora_fmc_top_xapp fmc_lane (
                 .rst(rst|vio_rst),
                 .clk40(clk40),
                 .clk160(clk160),
                 .clk640(clk640),
                 .data_in_p(data_in_p[j]),
                 .data_in_n(data_in_n[j]),
+                .idelay_rdy(idelay_rdy),
                 .blocksync_out(blocksync_out[j]),
                 .gearbox_rdy(gearbox_rdy_rx[j]),
                 .data_valid(data_valid[j]),
@@ -307,21 +328,6 @@ generate
                 .data_out_p(data_out_p[j]),
                 .data_out_n(data_out_n[j])
             );
-            
-            //aurora_fmc_top_xapp rx_lane (
-            //    .rst(rst|vio_rst),
-            //    .clk40(clk40),
-            //    .clk160(clk160),
-            //    .clk640(clk640),
-            //    .data_in_p(data_in_p[i]),
-            //    .data_in_n(data_in_n[i]),
-            //    .idelay_rdy(idelay_rdy),
-            //    .blocksync_out(blocksync_out[i]),
-            //    .gearbox_rdy(gearbox_rdy_rx[i]),
-            //    .data_valid(data_valid[i]),
-            //    .sync_out(sync_out[i]),
-            //    .data_out(data_out[i])
-            //);
     end
 endgenerate
 

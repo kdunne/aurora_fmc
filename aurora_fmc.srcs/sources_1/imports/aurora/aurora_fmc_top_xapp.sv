@@ -9,7 +9,8 @@ module aurora_fmc_top_xapp (
     input clk40,
     input clk160,
     input clk640,
-    
+   
+    // Rx signals 
     input data_in_p,
     input data_in_n,
     
@@ -19,12 +20,34 @@ module aurora_fmc_top_xapp (
     output gearbox_rdy,
     output data_valid,
     output reg [1:0]  sync_out,
-    output [63:0] data_out
+    output [63:0] data_out,
+
+    // Tx signals
+    input[63:0] data_in,
+    input[1:0] sync,
+    
+    output gearbox_rdy_tx,
+    output data_next,
+    output data_out_p,
+    output data_out_n
+
 );
+
+// Scrambler Signals
+wire [65:0] data66_tx_scr;
+
+// OSERDES Signals
+wire [7:0] piso;
+reg [63:0] tx_buffer;
+reg [2:0] tx_buf_cnt;
 
 // ISERDES Signals
 reg  [31:0] data32_iserdes;
 wire [7:0]  sipo;
+
+// Tx Gearbox Signals
+wire [31:0] data32_gb_tx;
+wire	    data_next;		// Redeclaration. May need to get rid of it
 
 // Rx Gearbox Signals
 wire [65:0] data66_gb_rx;
@@ -32,6 +55,25 @@ wire [1:0] sync_out_i;
 
 // Block Sync Signals
 wire        rxgearboxslip_out;
+
+// Serializer 32 to 8 bits
+always @(posedge clk160) begin
+    if (rst) begin
+        tx_buf_cnt <= 3'h0;
+    end
+    else begin
+        tx_buf_cnt <= tx_buf_cnt + 1;
+        
+        if ((tx_buf_cnt == 0) || (tx_buf_cnt == 4)) begin
+            tx_buffer <= {data32_gb_tx, tx_buffer[39:8]};
+        end
+        else begin
+            tx_buffer <= {8'h00, tx_buffer >> 8};
+        end
+    end
+end
+
+assign piso = tx_buffer[7:0];
 
 // Bit Error Rate Logic
 reg [15:0] bit_err_cnt;
@@ -124,7 +166,48 @@ iserdes_inst (
 	.debug			(debug)) ;				// debug bus
     
 //========================= XAPP =========================
-    
+
+
+//======================
+//    Aurora Tx
+//======================
+
+// Scrambler
+scrambler scr(
+    .clk(clk40),
+    .rst(rst),
+    .data_in(data_in),
+    .sync_info(sync),
+    .enable(data_next&gearbox_rdy),
+    .data_out(data66_tx_scr)
+);
+
+// Tx Gearbox
+gearbox66to32 tx_gb (
+    .rst(rst),
+    .clk(clk40),
+    .data66(data66_tx_scr),
+    //.data66({sync,data_in}) // Use this to bypass Scrambler
+    .gearbox_rdy(gearbox_rdy_tx),
+    .data32(data32_gb_tx),
+    .data_next(data_next)
+);
+
+// OSERDES Interface
+//cmd_oserdes piso0_1280(
+//    .io_reset(rst),
+//    .data_out_from_device(piso),
+//    .data_out_to_pins_p(data_out_p),
+//    .data_out_to_pins_n(data_out_n),
+//    .clk_in(clk640),
+//    .clk_div_in(clk160)
+//);
+  
+
+//=====================
+//    Aurora Rx
+//=====================
+  
 gearbox32to66 rx_gb (
     .rst(rst),
     .clk(clk40),

@@ -204,6 +204,20 @@ set_property IOSTANDARD LVDS [get_ports USER_SMA_CLOCK_P]
 set_property PACKAGE_PIN AK32 [get_ports USER_SMA_CLOCK_N]
 set_property IOSTANDARD LVDS [get_ports USER_SMA_CLOCK_N]
 
+################################## IO Buffer Driver Ports ########################
+#FMC_LPC_LA05_P
+set_property PACKAGE_PIN N33 [get_ports latch]
+set_property IOSTANDARD LVCMOS18 [get_ports latch]
+
+#FMC_LPC_LA05_P
+set_property PACKAGE_PIN N34 [get_ports clk_io]
+set_property IOSTANDARD LVCMOS18 [get_ports clk_io]
+
+#FMC_LPC_LA05_P
+set_property PACKAGE_PIN P32 [get_ports ser_in]
+set_property IOSTANDARD LVCMOS18 [get_ports ser_in]
+
+
 ################################## LCD Ports ########################
 #GPIO LCD
 #set_property PACKAGE_PIN AA13 [get_ports LCD_DB4_LS]

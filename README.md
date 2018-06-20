@@ -6,19 +6,18 @@ Using Xilinx VC707 evaluation board
 --------------------
 
 ### TODO
--  solve data_in single ended but IOSTD LVDS (IBUFGDS?)
--  oserdes/iserdes source file does not match data members in IP 
--  Find out if IO_config_buf is needed
--  Select appropriate clocks (160 Mbps)
--  Generate 1 lane of data
+
 -  Use debug cores to test
+-  Select appropriate clocks (160 Mbps)
+-  Find replacement for USER_SMA_CLK
 -  Route BER output somewhere (LCDdriver)
--  Find replacement for USER_SMA_CLK?
 
 ---
 
 ### Finished
-
+- [x] Find out if IO_config_buf is needed: hardware specific shifts enable pin on shift registers
+- [x] oserdes/iserdes source file does not match data members in IP commit: 7e71ae063d62d32e1002d2717144c33c0c774c9c
+- [x] solve data_in single ended but IOSTD LVDS commit: 8041d477b5e5e837390f3f2fbe31024933d58458
 - [x] Change constraints from KC705 to VC707 evaluation board commit: 172764114d4dd8e4aec780bc010fea50a3d8d92f
 - [x] Merge rx/tx constraints commit: 172764114d4dd8e4aec780bc010fea50a3d8d92f
 - [x] Program rx/tx separately to VC707 - probe FMC outputs

@@ -11,18 +11,18 @@ module aurora_fmc_num_lane_top (
     input [num_lanes-1:0] data_in_p,
     input [num_lanes-1:0] data_in_n,
 
-    input USER_SMA_CLOCK_P,
-    input USER_SMA_CLOCK_N,
+    //input USER_SMA_CLOCK_P,
+    //input USER_SMA_CLOCK_N,
 
     output [num_lanes-1:0] data_out_p,
     output [num_lanes-1:0] data_out_n,    
 
     output latch,
     output clk_io,
-    output ser_in
+    output ser_in,
     
-    //output USER_SMA_CLOCK_P,
-    //output USER_SMA_CLOCK_N
+    output USER_SMA_CLOCK_P,
+    output USER_SMA_CLOCK_N
 );
 
 localparam num_lanes = 4;       // Desired lanes.

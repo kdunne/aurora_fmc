@@ -151,14 +151,14 @@ gearbox66to32 tx_gb (
 );
 
 // OSERDES Interface
-//cmd_oserdes piso0_1280(
-//    .io_reset(rst),
-//   .data_out_from_device(piso),
-//  .data_out_to_pins_p(data_out_p),
-//  .data_out_to_pins_n(data_out_n),
-//  .clk_in(clk640),
-//  .clk_div_in(clk160)
-//);
+cmd_oserdes piso0_1280(
+  .io_reset(rst),
+  .data_in_to_device(piso),
+  .data_in_from_pins_p(data_out_p),
+  .data_in_from_pins_n(data_out_n),
+  .clk_in(clk640),
+  .clk_out(clk160)
+);
 
 //===================
 // Aurora Rx

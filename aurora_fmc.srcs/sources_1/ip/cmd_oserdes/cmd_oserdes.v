@@ -53,7 +53,7 @@
 
 `timescale 1ps/1ps
 
-(* CORE_GENERATION_INFO = "cmd_oserdes,selectio_wiz_v5_1,{component_name=cmd_oserdes,bus_dir=INPUTS,bus_sig_type=SINGLE,bus_io_std=LVCMOS18,use_serialization=false,use_phase_detector=false,serialization_factor=4,enable_bitslip=false,enable_train=false,system_data_width=1,bus_in_delay=NONE,bus_out_delay=NONE,clk_sig_type=SINGLE,clk_io_std=LVCMOS18,clk_buf=BUFIO2,active_edge=RISING,clk_delay=NONE,selio_bus_in_delay=NONE,selio_bus_out_delay=NONE,selio_clk_buf=BUFIO,selio_active_edge=SDR,selio_ddr_alignment=SAME_EDGE_PIPELINED,selio_oddr_alignment=SAME_EDGE,ddr_alignment=C0,selio_interface_type=NETWORKING,interface_type=NETWORKING,selio_bus_in_tap=0,selio_bus_out_tap=0,selio_clk_io_std=LVCMOS18,selio_clk_sig_type=SINGLE}" *)
+(* CORE_GENERATION_INFO = "cmd_oserdes,selectio_wiz_v5_1,{component_name=cmd_oserdes,bus_dir=INPUTS,bus_sig_type=DIFF,bus_io_std=LVDS,use_serialization=false,use_phase_detector=false,serialization_factor=4,enable_bitslip=false,enable_train=false,system_data_width=1,bus_in_delay=NONE,bus_out_delay=NONE,clk_sig_type=SINGLE,clk_io_std=LVCMOS18,clk_buf=BUFIO2,active_edge=RISING,clk_delay=NONE,selio_bus_in_delay=NONE,selio_bus_out_delay=NONE,selio_clk_buf=BUFIO,selio_active_edge=SDR,selio_ddr_alignment=SAME_EDGE_PIPELINED,selio_oddr_alignment=SAME_EDGE,ddr_alignment=C0,selio_interface_type=NETWORKING,interface_type=NETWORKING,selio_bus_in_tap=0,selio_bus_out_tap=0,selio_clk_io_std=LVDS,selio_clk_sig_type=DIFF}" *)
 
 module cmd_oserdes
    // width of the data for the system
@@ -62,9 +62,11 @@ module cmd_oserdes
    parameter DEV_W = 1)
  (
   // From the system into the device
-  input  [SYS_W-1:0] data_in_from_pins,
+  input  [SYS_W-1:0] data_in_from_pins_p,
+  input  [SYS_W-1:0] data_in_from_pins_n,
   output [DEV_W-1:0] data_in_to_device,
-  input              clk_in,        // Single ended clock from IOB
+  input              clk_in_p,      // Differential clock from IOB
+  input              clk_in_n,
   output             clk_out,
   input              io_reset);
 
@@ -76,9 +78,11 @@ module cmd_oserdes
   )
   inst
  (
-   .data_in_from_pins(data_in_from_pins),
+   .data_in_from_pins_p(data_in_from_pins_p),
+   .data_in_from_pins_n(data_in_from_pins_n),
    .data_in_to_device(data_in_to_device),
-   .clk_in(clk_in),                            
+   .clk_in_p(clk_in_p),                          
+   .clk_in_n(clk_in_n),
    .clk_out(clk_out),
    .io_reset(io_reset)
 ); 

@@ -60,9 +60,11 @@ module cmd_iserdes_selectio_wiz
    parameter DEV_W = 1)
  (
   // From the system into the device
-  input  [SYS_W-1:0] data_in_from_pins,
+  input  [SYS_W-1:0] data_in_from_pins_p,
+  input  [SYS_W-1:0] data_in_from_pins_n,
   output [DEV_W-1:0] data_in_to_device,
-  input              clk_in,        // Single ended clock from IOB
+  input              clk_in_p,      // Differential clock from IOB
+  input              clk_in_n,
   output             clk_out,
   input              io_reset);
   wire clock_enable = 1'b1;
@@ -74,11 +76,11 @@ module cmd_iserdes_selectio_wiz
   wire [SYS_W-1:0]  data_in_from_pins_delay;
   // Create the clock logic
 
-
-  IBUF
-    #(.IOSTANDARD ("LVCMOS18"))
-   ibuf_clk_inst
-     (.I          (clk_in),
+  IBUFDS
+    #(.IOSTANDARD ("LVDS"))
+   ibufds_clk_inst
+     (.I          (clk_in_p),
+      .IB         (clk_in_n),
       .O          (clk_in_int));
   
    // BUFR generates the slow clock
@@ -98,10 +100,12 @@ module cmd_iserdes_selectio_wiz
     // Instantiate the buffers
     ////------------------------------
     // Instantiate a buffer for every bit of the data bus
-    IBUF
-      #(.IOSTANDARD ("LVCMOS18"))
-     ibuf_inst
-       (.I          (data_in_from_pins    [pin_count]),
+    IBUFDS
+      #(.DIFF_TERM  ("FALSE"),             // Differential termination
+        .IOSTANDARD ("LVDS"))
+     ibufds_inst
+       (.I          (data_in_from_pins_p  [pin_count]),
+        .IB         (data_in_from_pins_n  [pin_count]),
         .O          (data_in_from_pins_int[pin_count]));
 
     // Pass through the delay

@@ -1,10 +1,10 @@
 // Copyright 1986-2014 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2014.4.1 (lin64) Build 1149489 Thu Feb 19 16:00:12 MST 2015
-// Date        : Thu Apr 19 13:27:05 2018
+// Date        : Tue Jun 19 16:03:38 2018
 // Host        : dhcp-130-148.ucsc.edu running 64-bit Scientific Linux CERN SLC release 6.9 (Carbon)
 // Command     : write_verilog -force -mode funcsim
-//               /home/pixdaq/kdunne/fmc_four_lane_io_buf_640/aurora_rx/aurora_rx.srcs/sources_1/ip/cmd_iserdes/cmd_iserdes_funcsim.v
+//               /home/pixdaq/kdunne/fmc_one_lane/aurora_fmc/aurora_fmc.srcs/sources_1/ip/cmd_iserdes/cmd_iserdes_funcsim.v
 // Design      : cmd_iserdes
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -12,54 +12,68 @@
 // --------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CORE_GENERATION_INFO = "cmd_iserdes,selectio_wiz_v5_1,{component_name=cmd_iserdes,bus_dir=INPUTS,bus_sig_type=SINGLE,bus_io_std=LVCMOS18,use_serialization=false,use_phase_detector=false,serialization_factor=4,enable_bitslip=false,enable_train=false,system_data_width=1,bus_in_delay=NONE,bus_out_delay=NONE,clk_sig_type=SINGLE,clk_io_std=LVCMOS18,clk_buf=BUFIO2,active_edge=RISING,clk_delay=NONE,selio_bus_in_delay=NONE,selio_bus_out_delay=NONE,selio_clk_buf=BUFIO,selio_active_edge=SDR,selio_ddr_alignment=SAME_EDGE_PIPELINED,selio_oddr_alignment=SAME_EDGE,ddr_alignment=C0,selio_interface_type=NETWORKING,interface_type=NETWORKING,selio_bus_in_tap=0,selio_bus_out_tap=0,selio_clk_io_std=LVCMOS18,selio_clk_sig_type=SINGLE}" *) (* SYS_W = "1" *) (* DEV_W = "1" *) 
+(* CORE_GENERATION_INFO = "cmd_iserdes,selectio_wiz_v5_1,{component_name=cmd_iserdes,bus_dir=INPUTS,bus_sig_type=DIFF,bus_io_std=LVDS,use_serialization=false,use_phase_detector=false,serialization_factor=4,enable_bitslip=false,enable_train=false,system_data_width=1,bus_in_delay=NONE,bus_out_delay=NONE,clk_sig_type=SINGLE,clk_io_std=LVCMOS18,clk_buf=BUFIO2,active_edge=RISING,clk_delay=NONE,selio_bus_in_delay=NONE,selio_bus_out_delay=NONE,selio_clk_buf=BUFIO,selio_active_edge=SDR,selio_ddr_alignment=SAME_EDGE_PIPELINED,selio_oddr_alignment=SAME_EDGE,ddr_alignment=C0,selio_interface_type=NETWORKING,interface_type=NETWORKING,selio_bus_in_tap=0,selio_bus_out_tap=0,selio_clk_io_std=LVDS,selio_clk_sig_type=DIFF}" *) (* SYS_W = "1" *) (* DEV_W = "1" *) 
 (* NotValidForBitStream *)
 module cmd_iserdes
-   (data_in_from_pins,
+   (data_in_from_pins_p,
+    data_in_from_pins_n,
     data_in_to_device,
-    clk_in,
+    clk_in_p,
+    clk_in_n,
     clk_out,
     io_reset);
-  input [0:0]data_in_from_pins;
+  input [0:0]data_in_from_pins_p;
+  input [0:0]data_in_from_pins_n;
   output [0:0]data_in_to_device;
-  input clk_in;
+  input clk_in_p;
+  input clk_in_n;
   output clk_out;
   input io_reset;
 
-(* IBUF_LOW_PWR *) (* IOSTANDARD = "LVCMOS18" *)   wire clk_in;
+(* DIFF_TERM=0 *) (* IBUF_LOW_PWR *) (* IOSTANDARD = "LVDS" *)   wire clk_in_n;
+(* DIFF_TERM=0 *) (* IBUF_LOW_PWR *) (* IOSTANDARD = "LVDS" *)   wire clk_in_p;
   wire clk_out;
-(* IBUF_LOW_PWR *) (* IOSTANDARD = "LVCMOS18" *)   wire [0:0]data_in_from_pins;
+(* DIFF_TERM=0 *) (* IBUF_LOW_PWR *) (* IOSTANDARD = "LVDS" *)   wire [0:0]data_in_from_pins_n;
+(* DIFF_TERM=0 *) (* IBUF_LOW_PWR *) (* IOSTANDARD = "LVDS" *)   wire [0:0]data_in_from_pins_p;
   wire [0:0]data_in_to_device;
   wire io_reset;
 
 (* DEV_W = "1" *) 
    (* SYS_W = "1" *) 
    cmd_iserdes_cmd_iserdes_selectio_wiz inst
-       (.clk_in(clk_in),
+       (.clk_in_n(clk_in_n),
+        .clk_in_p(clk_in_p),
         .clk_out(clk_out),
-        .data_in_from_pins(data_in_from_pins),
+        .data_in_from_pins_n(data_in_from_pins_n),
+        .data_in_from_pins_p(data_in_from_pins_p),
         .data_in_to_device(data_in_to_device),
         .io_reset(io_reset));
 endmodule
 
 (* SYS_W = "1" *) (* DEV_W = "1" *) (* ORIG_REF_NAME = "cmd_iserdes_selectio_wiz" *) 
 module cmd_iserdes_cmd_iserdes_selectio_wiz
-   (data_in_from_pins,
+   (data_in_from_pins_p,
+    data_in_from_pins_n,
     data_in_to_device,
-    clk_in,
+    clk_in_p,
+    clk_in_n,
     clk_out,
     io_reset);
-  input [0:0]data_in_from_pins;
+  input [0:0]data_in_from_pins_p;
+  input [0:0]data_in_from_pins_n;
   output [0:0]data_in_to_device;
-  input clk_in;
+  input clk_in_p;
+  input clk_in_n;
   output clk_out;
   input io_reset;
 
-(* IBUF_LOW_PWR *) (* IOSTANDARD = "LVCMOS18" *)   wire clk_in;
   wire clk_in_int;
+(* DIFF_TERM=0 *) (* IBUF_LOW_PWR *) (* IOSTANDARD = "LVDS" *)   wire clk_in_n;
+(* DIFF_TERM=0 *) (* IBUF_LOW_PWR *) (* IOSTANDARD = "LVDS" *)   wire clk_in_p;
   wire clk_out;
-(* IBUF_LOW_PWR *) (* IOSTANDARD = "LVCMOS18" *)   wire [0:0]data_in_from_pins;
   wire data_in_from_pins_int;
+(* DIFF_TERM=0 *) (* IBUF_LOW_PWR *) (* IOSTANDARD = "LVDS" *)   wire [0:0]data_in_from_pins_n;
+(* DIFF_TERM=0 *) (* IBUF_LOW_PWR *) (* IOSTANDARD = "LVDS" *)   wire [0:0]data_in_from_pins_p;
   wire [0:0]data_in_to_device;
   wire io_reset;
   wire NLW_clkout_buf_inst_CE_UNCONNECTED;
@@ -78,8 +92,11 @@ module cmd_iserdes_cmd_iserdes_selectio_wiz
    (* CAPACITANCE = "DONT_CARE" *) 
    (* IBUF_DELAY_VALUE = "0" *) 
    (* IFD_DELAY_VALUE = "AUTO" *) 
-   IBUF ibuf_clk_inst
-       (.I(clk_in),
+   IBUFDS #(
+    .DQS_BIAS("FALSE")) 
+     ibufds_clk_inst
+       (.I(clk_in_p),
+        .IB(clk_in_n),
         .O(clk_in_int));
 (* BOX_TYPE = "PRIMITIVE" *) 
    (* IOB = "TRUE" *) 
@@ -98,8 +115,11 @@ module cmd_iserdes_cmd_iserdes_selectio_wiz
    (* CAPACITANCE = "DONT_CARE" *) 
    (* IBUF_DELAY_VALUE = "0" *) 
    (* IFD_DELAY_VALUE = "AUTO" *) 
-   IBUF \pins[0].ibuf_inst 
-       (.I(data_in_from_pins),
+   IBUFDS #(
+    .DQS_BIAS("FALSE")) 
+     \pins[0].ibufds_inst 
+       (.I(data_in_from_pins_p),
+        .IB(data_in_from_pins_n),
         .O(data_in_from_pins_int));
 endmodule
 `ifndef GLBL

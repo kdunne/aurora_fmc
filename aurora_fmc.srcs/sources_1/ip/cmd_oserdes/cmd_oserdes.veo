@@ -55,11 +55,13 @@
 
 //----------- Begin Cut here for INSTANTIATION Template ---// INST_TAG
 cmd_oserdes your_instance_name (
-  .data_in_from_pins(data_in_from_pins),  // input wire [0 : 0] data_in_from_pins
-  .clk_in(clk_in),                        // input wire clk_in
-  .io_reset(io_reset),                    // input wire io_reset
-  .clk_out(clk_out),                      // output wire clk_out
-  .data_in_to_device(data_in_to_device)  // output wire [0 : 0] data_in_to_device
+  .data_in_from_pins_p(data_in_from_pins_p),  // input wire [0 : 0] data_in_from_pins_p
+  .data_in_from_pins_n(data_in_from_pins_n),  // input wire [0 : 0] data_in_from_pins_n
+  .clk_in_p(clk_in_p),                        // input wire clk_in_p
+  .clk_in_n(clk_in_n),                        // input wire clk_in_n
+  .io_reset(io_reset),                        // input wire io_reset
+  .clk_out(clk_out),                          // output wire clk_out
+  .data_in_to_device(data_in_to_device)      // output wire [0 : 0] data_in_to_device
 );
 // INST_TAG_END ------ End INSTANTIATION Template ---------
 

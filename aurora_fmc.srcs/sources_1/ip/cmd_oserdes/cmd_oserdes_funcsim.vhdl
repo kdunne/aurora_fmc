@@ -1,10 +1,10 @@
 -- Copyright 1986-2014 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2014.4.1 (lin64) Build 1149489 Thu Feb 19 16:00:12 MST 2015
--- Date        : Mon Apr 23 13:19:28 2018
+-- Date        : Tue Jun 19 15:43:16 2018
 -- Host        : dhcp-130-148.ucsc.edu running 64-bit Scientific Linux CERN SLC release 6.9 (Carbon)
 -- Command     : write_vhdl -force -mode funcsim
---               /home/pixdaq/kdunne/fmc_four_lane_io_buf_640/aurora_tx/aurora_tx.srcs/sources_1/ip/cmd_oserdes/cmd_oserdes_funcsim.vhdl
+--               /home/pixdaq/kdunne/fmc_one_lane/aurora_fmc/aurora_fmc.srcs/sources_1/ip/cmd_oserdes/cmd_oserdes_funcsim.vhdl
 -- Design      : cmd_oserdes
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -16,9 +16,11 @@ library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 entity cmd_oserdes_cmd_oserdes_selectio_wiz is
   port (
-    data_in_from_pins : in STD_LOGIC_VECTOR ( 0 to 0 );
+    data_in_from_pins_p : in STD_LOGIC_VECTOR ( 0 to 0 );
+    data_in_from_pins_n : in STD_LOGIC_VECTOR ( 0 to 0 );
     data_in_to_device : out STD_LOGIC_VECTOR ( 0 to 0 );
-    clk_in : in STD_LOGIC;
+    clk_in_p : in STD_LOGIC;
+    clk_in_n : in STD_LOGIC;
     clk_out : out STD_LOGIC;
     io_reset : in STD_LOGIC
   );
@@ -38,20 +40,20 @@ architecture STRUCTURE of cmd_oserdes_cmd_oserdes_selectio_wiz is
   signal NLW_clkout_buf_inst_CLR_UNCONNECTED : STD_LOGIC;
   attribute BOX_TYPE : string;
   attribute BOX_TYPE of clkout_buf_inst : label is "PRIMITIVE";
-  attribute BOX_TYPE of ibuf_clk_inst : label is "PRIMITIVE";
+  attribute BOX_TYPE of ibufds_clk_inst : label is "PRIMITIVE";
   attribute CAPACITANCE : string;
-  attribute CAPACITANCE of ibuf_clk_inst : label is "DONT_CARE";
+  attribute CAPACITANCE of ibufds_clk_inst : label is "DONT_CARE";
   attribute IBUF_DELAY_VALUE : string;
-  attribute IBUF_DELAY_VALUE of ibuf_clk_inst : label is "0";
+  attribute IBUF_DELAY_VALUE of ibufds_clk_inst : label is "0";
   attribute IFD_DELAY_VALUE : string;
-  attribute IFD_DELAY_VALUE of ibuf_clk_inst : label is "AUTO";
+  attribute IFD_DELAY_VALUE of ibufds_clk_inst : label is "AUTO";
   attribute BOX_TYPE of \pins[0].fdre_in_inst\ : label is "PRIMITIVE";
   attribute IOB : string;
   attribute IOB of \pins[0].fdre_in_inst\ : label is "TRUE";
-  attribute BOX_TYPE of \pins[0].ibuf_inst\ : label is "PRIMITIVE";
-  attribute CAPACITANCE of \pins[0].ibuf_inst\ : label is "DONT_CARE";
-  attribute IBUF_DELAY_VALUE of \pins[0].ibuf_inst\ : label is "0";
-  attribute IFD_DELAY_VALUE of \pins[0].ibuf_inst\ : label is "AUTO";
+  attribute BOX_TYPE of \pins[0].ibufds_inst\ : label is "PRIMITIVE";
+  attribute CAPACITANCE of \pins[0].ibufds_inst\ : label is "DONT_CARE";
+  attribute IBUF_DELAY_VALUE of \pins[0].ibufds_inst\ : label is "0";
+  attribute IFD_DELAY_VALUE of \pins[0].ibufds_inst\ : label is "AUTO";
 begin
   clk_out <= \^clk_out\;
 clkout_buf_inst: unisim.vcomponents.BUFR
@@ -65,9 +67,13 @@ clkout_buf_inst: unisim.vcomponents.BUFR
       I => clk_in_int,
       O => \^clk_out\
     );
-ibuf_clk_inst: unisim.vcomponents.IBUF
+ibufds_clk_inst: unisim.vcomponents.IBUFDS
+    generic map(
+      DQS_BIAS => "FALSE"
+    )
     port map (
-      I => clk_in,
+      I => clk_in_p,
+      IB => clk_in_n,
       O => clk_in_int
     );
 \pins[0].fdre_in_inst\: unisim.vcomponents.FDRE
@@ -84,9 +90,13 @@ ibuf_clk_inst: unisim.vcomponents.IBUF
       Q => data_in_to_device(0),
       R => io_reset
     );
-\pins[0].ibuf_inst\: unisim.vcomponents.IBUF
+\pins[0].ibufds_inst\: unisim.vcomponents.IBUFDS
+    generic map(
+      DQS_BIAS => "FALSE"
+    )
     port map (
-      I => data_in_from_pins(0),
+      I => data_in_from_pins_p(0),
+      IB => data_in_from_pins_n(0),
       O => data_in_from_pins_int
     );
 end STRUCTURE;
@@ -96,16 +106,18 @@ library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 entity cmd_oserdes is
   port (
-    data_in_from_pins : in STD_LOGIC_VECTOR ( 0 to 0 );
+    data_in_from_pins_p : in STD_LOGIC_VECTOR ( 0 to 0 );
+    data_in_from_pins_n : in STD_LOGIC_VECTOR ( 0 to 0 );
     data_in_to_device : out STD_LOGIC_VECTOR ( 0 to 0 );
-    clk_in : in STD_LOGIC;
+    clk_in_p : in STD_LOGIC;
+    clk_in_n : in STD_LOGIC;
     clk_out : out STD_LOGIC;
     io_reset : in STD_LOGIC
   );
   attribute NotValidForBitStream : boolean;
   attribute NotValidForBitStream of cmd_oserdes : entity is true;
   attribute CORE_GENERATION_INFO : string;
-  attribute CORE_GENERATION_INFO of cmd_oserdes : entity is "cmd_oserdes,selectio_wiz_v5_1,{component_name=cmd_oserdes,bus_dir=INPUTS,bus_sig_type=SINGLE,bus_io_std=LVCMOS18,use_serialization=false,use_phase_detector=false,serialization_factor=4,enable_bitslip=false,enable_train=false,system_data_width=1,bus_in_delay=NONE,bus_out_delay=NONE,clk_sig_type=SINGLE,clk_io_std=LVCMOS18,clk_buf=BUFIO2,active_edge=RISING,clk_delay=NONE,selio_bus_in_delay=NONE,selio_bus_out_delay=NONE,selio_clk_buf=BUFIO,selio_active_edge=SDR,selio_ddr_alignment=SAME_EDGE_PIPELINED,selio_oddr_alignment=SAME_EDGE,ddr_alignment=C0,selio_interface_type=NETWORKING,interface_type=NETWORKING,selio_bus_in_tap=0,selio_bus_out_tap=0,selio_clk_io_std=LVCMOS18,selio_clk_sig_type=SINGLE}";
+  attribute CORE_GENERATION_INFO of cmd_oserdes : entity is "cmd_oserdes,selectio_wiz_v5_1,{component_name=cmd_oserdes,bus_dir=INPUTS,bus_sig_type=DIFF,bus_io_std=LVDS,use_serialization=false,use_phase_detector=false,serialization_factor=4,enable_bitslip=false,enable_train=false,system_data_width=1,bus_in_delay=NONE,bus_out_delay=NONE,clk_sig_type=SINGLE,clk_io_std=LVCMOS18,clk_buf=BUFIO2,active_edge=RISING,clk_delay=NONE,selio_bus_in_delay=NONE,selio_bus_out_delay=NONE,selio_clk_buf=BUFIO,selio_active_edge=SDR,selio_ddr_alignment=SAME_EDGE_PIPELINED,selio_oddr_alignment=SAME_EDGE,ddr_alignment=C0,selio_interface_type=NETWORKING,interface_type=NETWORKING,selio_bus_in_tap=0,selio_bus_out_tap=0,selio_clk_io_std=LVDS,selio_clk_sig_type=DIFF}";
   attribute SYS_W : integer;
   attribute SYS_W of cmd_oserdes : entity is 1;
   attribute DEV_W : integer;
@@ -118,9 +130,11 @@ architecture STRUCTURE of cmd_oserdes is
 begin
 inst: entity work.cmd_oserdes_cmd_oserdes_selectio_wiz
     port map (
-      clk_in => clk_in,
+      clk_in_n => clk_in_n,
+      clk_in_p => clk_in_p,
       clk_out => clk_out,
-      data_in_from_pins(0) => data_in_from_pins(0),
+      data_in_from_pins_n(0) => data_in_from_pins_n(0),
+      data_in_from_pins_p(0) => data_in_from_pins_p(0),
       data_in_to_device(0) => data_in_to_device(0),
       io_reset => io_reset
     );
